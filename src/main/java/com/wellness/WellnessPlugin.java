@@ -19,7 +19,9 @@ import net.runelite.client.Notifier;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Wellness Notifications"
+		name = "Wellness Notifications",
+		description = "A plugin to add reminders that promote wellness and healthy gaming.",
+		tags = {"wellness", "health", "eye", "reminder", "hydration"}
 )
 public class WellnessPlugin extends Plugin
 {
