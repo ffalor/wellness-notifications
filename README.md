@@ -4,6 +4,7 @@ The goal of this plugin is send helpful reminders about small steps users can ta
 
 ## What it Does
 
+-   Posture check to notifiy users to be mindful of their posture.
 -   Notifies users to be mindful of the very simple 20 | 20 | 20 rule to prevent digitial Eye Strain. [More Info Here](https://www.aoa.org/documents/infographics/SYVM2016Infographics.pdf)
 
 ## Future Plans
