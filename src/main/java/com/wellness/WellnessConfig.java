@@ -35,7 +35,7 @@ public interface WellnessConfig extends Config
 			keyName = "posturenotify",
 			name = "Posture Check Notifications",
 			description = "Configures if posture check notifications are enabled",
-			position = 1
+			position = 3
 	)
 	default boolean posturenotify()
 	{
@@ -46,7 +46,7 @@ public interface WellnessConfig extends Config
 			keyName = "postureinterval",
 			name = "Posture Check Notify Interval",
 			description = "The time between each notification",
-			position = 2
+			position = 4
 	)
 	@Units(Units.MINUTES)
 	default int postureinterval()
