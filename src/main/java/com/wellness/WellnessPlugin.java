@@ -34,14 +34,19 @@ public class WellnessPlugin extends Plugin
 	@Inject
 	private Notifier notifier;
 
-	private Instant lastNotifyTime;
+	private Instant eyeNotifyTime;
+	private Instant postureNotifyTime;
 
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN && lastNotifyTime == null)
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN && eyeNotifyTime == null && config.eyenotify())
 		{
-			lastNotifyTime = Instant.now();
+			eyeNotifyTime = Instant.now();
+		}
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN && postureNotifyTime == null && config.posturenotify())
+		{
+			postureNotifyTime = Instant.now();
 		}
 	}
 
@@ -50,16 +55,16 @@ public class WellnessPlugin extends Plugin
 	{
 		final Player local = client.getLocalPlayer();
 		final Duration eyeDuration = Duration.ofMinutes(config.eyeinterval());
+		final Duration postureDuration = Duration.ofMinutes(config.postureinterval());
 		
-		if (config.eyenotify() && Instant.now().compareTo(lastNotifyTime.plus(eyeDuration)) >= 0) {
+		if (config.eyenotify() && Instant.now().compareTo(eyeNotifyTime.plus(eyeDuration)) >= 0) {
 		 	notifier.notify(local.getName() + " it has been " + config.eyeinterval() + " minutes. Consider taking a small 20 second break from looking at the screen.");
-		 	resetTimers();
+		 	eyeNotifyTime = Instant.now();
 		}
-	}
-
-	private void resetTimers()
-	{
-		lastNotifyTime = Instant.now();
+		if (config.posturenotify() && Instant.now().compareTo(postureNotifyTime.plus(postureDuration)) >= 0) {
+			notifier.notify("Posture check!!! It has been " + config.postureinterval() + " minutes");
+			postureNotifyTime = Instant.now();
+		}
 	}
 
 	@Provides
